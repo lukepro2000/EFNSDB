@@ -6,9 +6,9 @@ import bs4  # 网页解析 获取数据
 import re  # 正则表达式 进行文字匹配
 import urllib.request  # 指定url 获取网页数据
 import xlwt  # 进行excel操作
-import sqlite3  # 进行sqlite数据库操作
+import pymongo  # 进行mongo数据库操作
 
-
+#修改
 def main():
     baseurl = 'https://movie.douban.com/top250?start='
     # 1.爬取网页
@@ -20,7 +20,7 @@ def main():
     saveData2DB(datalist, dbpath)
     # askURL('https://movie.douban.com/top250?start=')
 
-
+#正则表达式要修改
 # 影片详情链接的规则
 findLink = re.compile(r'<a href="(.*?)">')  # 创建正则表达式队形，表示规则（字符串得模式）
 # 影片图片
@@ -36,7 +36,7 @@ findIng = re.compile(r'<span class="inq">(.*)</span>')
 # 找到影片的相关内容
 findBd = re.compile(r'<p class="">(.*?)</p>', re.S)
 
-
+#修改
 # 爬取网页
 def getData(baseurl):
     datalist = []
@@ -94,7 +94,7 @@ def getData(baseurl):
     # print(datalist)
     return datalist
 
-
+#修改网络
 # 得到指定一个url的网页内容
 def askURL(url):
     head = {
@@ -115,7 +115,7 @@ def askURL(url):
     return html
 
 
-# 保存数据
+# 保存数据到excel
 def savaData(datalist, savepath):
     book = xlwt.Workbook(encoding='utf-8', style_compression=0)  # 创建workbook对象
     sheet = book.add_sheet('豆瓣电影Top250', cell_overwrite_ok=True)  # 创建工作表
@@ -129,7 +129,7 @@ def savaData(datalist, savepath):
             sheet.write(i + 1, j, data[j])  # 数据
     book.save(savepath)  # 保存
 
-
+#修改
 def saveData2DB(datalist, dbpath):
     init_db(dbpath)
     conn = sqlite3.connect(dbpath)
